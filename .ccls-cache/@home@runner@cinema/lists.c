@@ -22,6 +22,24 @@ void push(list *l, film *f) {
   }
 }
 
+//добавление фильма в конец
+void pushback(list *l, film *f) {
+  if (l->size > 0) {
+    f->next = l->tail;
+    f->prev = l->head;
+    l->head->prev = f;
+    l->tail->next = f;
+    l->tail = f;
+    l->size++;
+  } else {
+    l->head = f;
+    l->tail = f;
+    f->next = f;
+    f->prev = f;
+    l->size++;
+  }
+}
+
 //добавление фильма перед фильмом n
 void insert(list *l, film *f, int n) {
   if (n == 0)
@@ -85,9 +103,77 @@ film pop(list *l) {
   return f;
 }
 
-//перемещение фильма из d в p
+//перемещение фильма из a в b
 void move(list *a, list *b) {
   film *f = (film *)malloc(sizeof(film));
   *f = pop(a);
   push(b, f);
+}
+
+//создание главного списка по файлу
+list scan(FILE *in) {
+
+  list l;
+  l.size = 0;
+  l.head = NULL;
+  l.tail = NULL;
+
+  char temp[100];
+  while (fgets(temp, 100, in) != NULL) {
+
+    film *f = (film *)malloc(sizeof(film));
+
+    strcpy(f->title, temp);
+
+    fgets(temp, 100, in);
+    f->year = atoi(temp);
+
+    fgets(temp, 100, in);
+    strcpy(f->country, temp);
+
+    fgets(temp, 100, in);
+    strcpy(f->genre, temp);
+
+    fgets(temp, 100, in);
+    f->rating = atof(temp);
+
+    pushback(&l, f);
+  }
+  return l;
+}
+
+void filmprint(film f) {
+  printf("%s", f.title);
+  printf("%d\n", f.year);
+  printf("%s", f.country);
+  printf("%s", f.genre);
+  printf("%.1f\n", f.rating);
+}
+
+void filmfprint(FILE *out, film f) {
+  fprintf(out, "%s", f.title);
+  fprintf(out, "%d\n", f.year);
+  fprintf(out, "%s", f.country);
+  fprintf(out, "%s", f.genre);
+  fprintf(out, "%.1f\n", f.rating);
+}
+
+void listprint(list l) {
+  film *current = l.head;
+  int i = 0;
+  while (i < l.size) {
+    filmprint(*current);
+    current = current->next;
+    i++;
+  }
+}
+
+void listfprint(FILE *out, list l) {
+  film *current = l.head;
+  int i = 0;
+  while (i < l.size) {
+    filmfprint(out, *current);
+    current = current->next;
+    i++;
+  }
 }
