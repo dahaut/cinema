@@ -23,3 +23,7 @@ extern film film_delete(list *l, int n);
 extern film pop(list *l);
 extern void move(list *a, list *b);
 extern list scan(FILE *in);
+extern void filmprint(film f);
+extern void filmfprint(FILE *out, film f);
+extern void listprint(list l);
+extern void listfprint(FILE *out, list l);

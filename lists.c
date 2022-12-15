@@ -123,3 +123,39 @@ list scan(FILE *in) {
   }
   return l;
 }
+
+void filmprint(film f) {
+  printf("%s", f.title);
+  printf("%d\n", f.year);
+  printf("%s", f.country);
+  printf("%s", f.genre);
+  printf("%.1f\n", f.rating);
+}
+
+void filmfprint(FILE *out, film f) {
+  fprintf(out, "%s", f.title);
+  fprintf(out, "%d\n", f.year);
+  fprintf(out, "%s", f.country);
+  fprintf(out, "%s", f.genre);
+  fprintf(out, "%.1f\n", f.rating);
+}
+
+void listprint(list l) {
+  film *current = l.head;
+  int i = 0;
+  while (i < l.size) {
+    filmprint(*current);
+    current = current->next;
+    i++;
+  }
+}
+
+void listfprint(FILE *out, list l) {
+  film *current = l.head;
+  int i = 0;
+  while (i < l.size) {
+    filmfprint(out, *current);
+    current = current->next;
+    i++;
+  }
+}
