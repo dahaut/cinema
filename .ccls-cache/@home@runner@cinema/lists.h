@@ -18,6 +18,7 @@ typedef struct list {
 
 
 extern void push(list *l, film *f);
+extern void pushback(list *l, film *f);
 extern void insert(list *l, film *f, int n);
 extern film film_delete(list *l, int n);
 extern film pop(list *l);

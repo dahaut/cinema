@@ -22,6 +22,24 @@ void push(list *l, film *f) {
   }
 }
 
+//добавление фильма в конец
+void pushback(list *l, film *f) {
+  if (l->size > 0) {
+    f->next = l->tail;
+    f->prev = l->head;
+    l->head->prev = f;
+    l->tail->next = f;
+    l->tail = f;
+    l->size++;
+  } else {
+    l->head = f;
+    l->tail = f;
+    f->next = f;
+    f->prev = f;
+    l->size++;
+  }
+}
+
 //добавление фильма перед фильмом n
 void insert(list *l, film *f, int n) {
   if (n == 0)
@@ -119,7 +137,7 @@ list scan(FILE *in) {
     fgets(temp, 100, in);
     f->rating = atof(temp);
 
-    push(&l, f);
+    pushback(&l, f);
   }
   return l;
 }
