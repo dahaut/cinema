@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 typedef struct film {
   char title[100];
   int year;
@@ -15,9 +17,9 @@ typedef struct list {
 } list;
 
 
-
 extern void push(list *l, film *f);
 extern void insert(list *l, film *f, int n);
 extern film film_delete(list *l, int n);
 extern film pop(list *l);
 extern void move(list *a, list *b);
+extern list scan(FILE *in);
