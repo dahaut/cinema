@@ -1,4 +1,3 @@
-
 typedef struct film {
   char title[100];
   int year;
@@ -14,6 +13,8 @@ typedef struct list {
   film *head;
   film *tail;
 } list;
+
+
 
 extern void push(list *l, film *f);
 extern void insert(list *l, film *f, int n);

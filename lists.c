@@ -91,3 +91,6 @@ void move(list *a, list *b) {
   *f = pop(a);
   push(b, f);
 }
+
+
+
