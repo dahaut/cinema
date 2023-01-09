@@ -7,10 +7,11 @@
 int main(void) {
   FILE *films = fopen("films.txt", "r");
 
-  list whole = scan(films);
+  filmlist whole = scan(films);
 
   listprint(whole);
 
   fclose(films);
+
   return 0;
 }

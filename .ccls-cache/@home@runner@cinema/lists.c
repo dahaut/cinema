@@ -5,7 +5,7 @@
 #include <string.h>
 
 //добавление фильма в начало
-void push(list *l, film *f) {
+void push(filmlist *l, film *f) {
   if (l->size > 0) {
     f->next = l->head;
     f->prev = l->tail;
@@ -23,7 +23,7 @@ void push(list *l, film *f) {
 }
 
 //добавление фильма в конец
-void pushback(list *l, film *f) {
+void pushback(filmlist *l, film *f) {
   if (l->size > 0) {
     f->next = l->tail;
     f->prev = l->head;
@@ -41,7 +41,7 @@ void pushback(list *l, film *f) {
 }
 
 //добавление фильма перед фильмом n
-void insert(list *l, film *f, int n) {
+void insert(filmlist *l, film *f, int n) {
   if (n == 0)
     push(l, f);
   else if (n > 0 && n <= l->size) {
@@ -60,7 +60,7 @@ void insert(list *l, film *f, int n) {
 }
 
 //удаление фильма n с возвратом
-film film_delete(list *l, int n) {
+film filmdelete(filmlist *l, int n) {
   film f;
   if (n < l->size && n > 0) {
     film *current = l->head;
@@ -88,7 +88,7 @@ film film_delete(list *l, int n) {
 }
 
 //удаление фильма с начала с возвратом
-film pop(list *l) {
+film pop(filmlist *l) {
   film f;
   if (l->size < 1) {
 
@@ -98,22 +98,22 @@ film pop(list *l) {
     l->tail = NULL;
     l->size = 0;
   } else {
-    f = film_delete(l, 0);
+    f = filmdelete(l, 0);
   }
   return f;
 }
 
 //перемещение фильма из a в b
-void move(list *a, list *b) {
+void move(filmlist *a, filmlist *b) {
   film *f = (film *)malloc(sizeof(film));
   *f = pop(a);
   push(b, f);
 }
 
 //создание главного списка по файлу
-list scan(FILE *in) {
+filmlist scan(FILE *in) {
 
-  list l;
+  filmlist l;
   l.size = 0;
   l.head = NULL;
   l.tail = NULL;
@@ -158,7 +158,7 @@ void filmfprint(FILE *out, film f) {
   fprintf(out, "%.1f\n", f.rating);
 }
 
-void listprint(list l) {
+void listprint(filmlist l) {
   film *current = l.head;
   int i = 0;
   while (i < l.size) {
@@ -168,7 +168,7 @@ void listprint(list l) {
   }
 }
 
-void listfprint(FILE *out, list l) {
+void listfprint(FILE *out, filmlist l) {
   film *current = l.head;
   int i = 0;
   while (i < l.size) {
