@@ -10,21 +10,20 @@ typedef struct film {
   struct film *prev;
 } film;
 
-typedef struct list {
+typedef struct filmlist {
   int size;
   film *head;
   film *tail;
-} list;
+} filmlist;
 
-
-extern void push(list *l, film *f);
-extern void pushback(list *l, film *f);
-extern void insert(list *l, film *f, int n);
-extern film film_delete(list *l, int n);
-extern film pop(list *l);
-extern void move(list *a, list *b);
-extern list scan(FILE *in);
+extern void push(filmlist *l, film *f);
+extern void pushback(filmlist *l, film *f);
+extern void insert(filmlist *l, film *f, int n);
+extern film filmdelete(filmlist *l, int n);
+extern film pop(filmlist *l);
+extern void move(filmlist *a, filmlist *b);
+extern filmlist scan(FILE *in);
 extern void filmprint(film f);
 extern void filmfprint(FILE *out, film f);
-extern void listprint(list l);
-extern void listfprint(FILE *out, list l);
+extern void listprint(filmlist l);
+extern void listfprint(FILE *out, filmlist l);
